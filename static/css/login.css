@@ -1,0 +1,74 @@
+body {
+    font-family: Arial, sans-serif;
+    color: #333;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    height: 100vh;
+}
+.left {
+    background-image: url('/static/images/background.png');
+    background-size: cover;
+    background-position: center;
+    width: 65%;
+}
+.right {
+    width: 35%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+.form-container {
+    background-color: rgba(255, 255, 255, 0.8);
+    border-radius: 10px;
+    margin-top: -50px;
+    padding: 20px;
+}
+.flash-message {
+    color: rgb(255, 0, 0);               
+    margin-bottom: 20px;
+}
+.form-container h1 {
+    margin-bottom: 20px;
+    font-size: 80px;
+    font-family: sans-serif;
+    color: rgb(0, 0, 0);
+}
+.link-cadastro{
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+
+}
+.form-container label {
+    display: block;
+    margin-bottom: 5px;
+}
+.form-container input[type="email"],
+.form-container input[type="password"] {
+    width: 100%;
+    padding: 20px;
+    margin-bottom: 25px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+.form-container button {
+    width: 100%;
+    padding: 20px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    box-sizing: border-box;
+}
+.form-container button:hover {
+    background-color: #0056b3;
+}
+.link-cadastro a {
+    color: #007bff;
+    text-decoration: none;
+    margin-left: 5px;
+}
