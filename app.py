@@ -2,6 +2,7 @@ from flask import Flask, redirect, render_template, request, url_for, flash, ses
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
 
+
 app = Flask(__name__)
 app.secret_key = 'supersenha'
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///users.db'
