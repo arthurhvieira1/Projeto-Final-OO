@@ -170,9 +170,8 @@ header {
     position: fixed;
     bottom: 0;
     width: calc(var(--sidebar-width) - 28px);
-    background: var(--secondary-color);
+    background: #4169E1;  /* Changed from var(--secondary-color) to #4169E1 */
     padding: 10px;
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .profile-details {
