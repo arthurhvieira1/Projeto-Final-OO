@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gerenciar Turmas</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/CRUD_turmas/gerenciar_turmas.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <script>
+        function confirmDelete(codigo) {
+            if (confirm('Tem certeza que deseja deletar esta turma?')) {
+                const form = document.createElement('form');
+                form.method = 'POST';
+                form.action = "{{ url_for('gerenciar_turmas') }}";
+                
+                const methodInput = document.createElement('input');
+                methodInput.type = 'hidden';
+                methodInput.name = '_method';
+                methodInput.value = 'DELETE';
+                
+                const codigoInput = document.createElement('input');
+                codigoInput.type = 'hidden';
+                codigoInput.name = 'codigo_disciplina';
+                codigoInput.value = codigo;
+                
+                form.appendChild(methodInput);
+                form.appendChild(codigoInput);
+                document.body.appendChild(form);
+                form.submit();
+            }
+        }
+    </script>
+</head>
+<body>
+    <div class="navbar">
+        <h2>Admin</h2>
+        <ul>
+           
+            <li><a href="{{ url_for('gerenciar_usuarios') }}"><i class="fas fa-users"></i> Gerenciar Usuários</a></li>
+            <li><a href="{{ url_for('criar_usuario') }}"><i class="fas fa-user-plus"></i> Novo Usuário</a></li>
+            <li><a href="{{ url_for('criar_turma') }}"><i class="fas fa-chalkboard"></i> Nova Turma</a></li>
+            <li><a href="{{ url_for('gerenciar_turmas') }}"><i class="fas fa-chalkboard"></i> Gerenciar Turmas</a></li>
+            <li><a href="{{ url_for('logout') }}"><i class="fa-solid fa-arrow-right-from-bracket"></i> Sair</a></li>
+            
+        </ul>
+    </div>
+    <div class="container">
+        <h1>Gerenciar Turmas</h1>
+        {% if turmas %}
+            <table class="users-table">
+                <thead>
+                    <tr>
+                        <th>Código</th>
+                        <th>Nome</th>
+                        <th>Professor</th>
+                        <th>Ano</th>
+                        <th>Semestre</th>
+                        <th>Ações</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for turma in turmas %}
+                        <tr>
+                            <td>{{ turma.codigo_disciplina }}</td>
+                            <td>{{ turma.nome }}</td>
+                            <td>{{ turma.professor.nome }}</td>
+                            <td>{{ turma.ano }}</td>
+                            <td>{{ turma.semestre }}º</td>
+                            <td>
+                                <a href="{{ url_for('atualizar_turma', codigo=turma.codigo_disciplina) }}" class="action-btn edit-btn">
+                                    <i class="fas fa-pencil-alt"></i>
+                                </a>
+                                <a onclick="confirmDelete('{{ turma.codigo_disciplina }}')" class="action-btn delete-btn">
+                                    <i class="fas fa-trash"></i>
+                                </a>
+                                <a href="{{ url_for('vizualizar_alunos', codigo=turma.codigo_disciplina) }}" class="action-btn view-btn">
+                                    <i class="fas fa-eye"></i>
+                                </a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <p>Nenhuma turma encontrada.</p>
+        {% endif %}
+    </div>
+</body>
+</html>

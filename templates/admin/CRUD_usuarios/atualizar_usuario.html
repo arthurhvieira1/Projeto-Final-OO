@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Atualizar Userio</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/CRUD_usuarios/atualizar_usuario.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <div class="navbar">
+        <h2>Admin</h2>
+        <ul>
+            <li><a href="{{ url_for('gerenciar_usuarios') }}"><i class="fas fa-users"></i> Gerenciar Usuários</a></li>
+            <li><a href="{{ url_for('criar_usuario') }}"><i class="fas fa-user-plus"></i> Novo Usuário</a></li>
+            <li><a href="{{ url_for('criar_turma') }}"><i class="fas fa-chalkboard"></i> Nova Turma</a></li>
+            <li><a href="{{ url_for('gerenciar_turmas') }}"><i class="fas fa-chalkboard"></i> Gerenciar Turmas</a></li>
+            <li><a href="{{ url_for('logout') }}"><i class="fa-solid fa-arrow-right-from-bracket"></i> Sair</a></li>
+            
+        </ul>
+    </div>
+    <div class="container">
+        <h1>Atualizar Usuario</h1>
+        <form action="{{ url_for('atualizar_usuario', email=user.email) }}" method="POST">
+            <div class="form-group">
+                <label for="nome">Nome:</label>
+                <input type="text" id="nome" name="nome" value="{{ user.nome }}" required>
+            </div>
+            <div class="form-group">
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" value="{{ user.email }}" required readonly>
+            </div>
+            <div class="form-group">
+                <label for="senha">Senha:</label>
+                <input type="password" id="senha" name="senha" value="{{ user.senha }}" required>
+            </div>
+            <div class="form-group">
+                <label>Cargo:</label>
+                <div class="radio-group">
+                    <div class="radio-option">
+                        <input type="radio" id="Aluno" name="cargo" value="Aluno" {% if user.cargo == 'Aluno' %}checked{% endif %} required>
+                        <label for="Aluno">Aluno</label>
+                    </div>
+                    <div class="radio-option">
+                        <input type="radio" id="Professor" name="cargo" value="Professor" {% if user.cargo == 'Professor' %}checked{% endif %} required>
+                        <label for="Professor">Professor</label>
+                    </div>
+                </div>
+            </div>
+            <button type="submit">Atualizar</button>
+        </form>
+        
+    </div>
+</body>
+</html>

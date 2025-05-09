@@ -1,0 +1,166 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Arial', sans-serif;
+}
+
+body {
+    display: flex;
+    min-height: 100vh;
+    overflow: hidden;
+}
+
+.navbar {
+    width: 10%;
+    background-color: #4169E1;
+    color: white;
+    padding: 1rem;
+    position: fixed;
+    height: 100%;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+}
+
+.navbar h2 {
+    text-align: center;
+    margin-bottom: 2rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    font-size: 28px;
+    color: var(--white-color);
+    min-width: 60px;
+    text-align: center;
+}
+
+
+.navbar ul {
+    list-style: none;
+    padding: 0;
+}
+
+.navbar ul li {
+    margin-bottom: 5px;
+}
+
+.navbar ul li a {
+    color: white;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    padding: 0.5rem 1rem;
+    transition: background-color 0.3s;
+    border-radius: 10px;
+}
+
+.navbar ul li a i {
+    margin-right: 0.5rem;
+}
+
+.navbar ul li a:hover {
+    background-color: #0056b3;
+    border-radius: 10px;
+}
+
+.container {
+    margin-left: 250px; 
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+    width: 75%;
+    margin: auto;
+    margin-top: 0;
+    
+}
+
+h1 {
+    color: #333;
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.actions {
+    margin-bottom: 2rem;
+    text-align: right;
+}
+
+
+
+.create-btn:hover {
+    background-color: #218838;
+}
+
+.users-table {
+    border-collapse: collapse;
+    margin: 2rem 0;
+    background-color: white;
+    border-radius: 8px;
+    overflow: hidden;
+    width: 100%;
+}
+
+.users-table th,
+.users-table td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #4169E1;
+}
+
+.users-table th {
+    background-color: #4169E1;
+    color: white;
+    font-weight: bold;
+}
+.users-table th:nth-child(1),
+.users-table td:nth-child(1) {
+    width: 30%; 
+}
+
+.users-table th:nth-child(2),
+.users-table td:nth-child(2) {
+    width: 30%; 
+}
+
+.users-table th:nth-child(3),
+.users-table td:nth-child(3) {
+    width: 20%; 
+}
+
+.users-table th:nth-child(4),
+.users-table td:nth-child(4) {
+    width: 20%; 
+}
+
+.users-table tr:hover {
+    background-color: #f5f5f5;
+}
+
+.action-buttons {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.action-btn {
+    padding: 8px 16px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+    transition: opacity 0.3s;
+    color: #4169E1;
+}
+
+.edit-btn:hover,
+.delete-btn:hover {
+    opacity: 0.8;
+}
+
+
+
+.empty-message {
+    text-align: center;
+    color: #666;
+    padding: 2rem;
+}
+

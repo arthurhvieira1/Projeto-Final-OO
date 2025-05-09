@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Minhas Turmas</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/aluno/visualizar_turmas_aluno.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <div class="navbar">
+        <h2>U N B</h2>
+        <ul>
+            <li><a href="{{ url_for('visualizar_turmas_aluno') }}"><i class="fas fa-graduation-cap"></i>Turmas</a></li>
+            <li><a href="{{ url_for('visualizar_notas') }}" class="active"><i class="fas fa-star"></i>Notas</a></li>
+            <li><a href="{{ url_for('gerenciar_perfil_aluno') }}"><i class="fa-solid fa-user"></i>Perfil</a></li>
+            <li><a href="{{ url_for('logout') }}"><i class="fa-solid fa-arrow-right-from-bracket"></i>Sair</a></li>
+        </ul>
+    </div>
+    <div class="container">
+        <h1>Minhas Turmas</h1>
+        {% if turmas %}
+            <table class="users-table">
+                <thead>
+                    <tr>
+                        <th>Código</th>
+                        <th>Nome</th>
+                        <th>Ano</th>
+                        <th>Semestre</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for turma in turmas %}
+                        <tr>
+                            <td>{{ turma.codigo_disciplina }}</td>
+                            <td>{{ turma.nome }}</td>
+                            <td>{{ turma.ano }}</td>
+                            <td>{{ turma.semestre }}º</td>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <p>Nenhuma turma encontrada.</p>
+        {% endif %}
+    </div>
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js"></script>
+    <script src="{{ url_for('static', filename='js/notifications.js') }}"></script>
+
+    <style>
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 15px;
+            background-color: #4169E1;
+            color: white;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            z-index: 1000;
+            animation: slideIn 0.5s ease-out;
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+    </style>
+</body>
+</html>

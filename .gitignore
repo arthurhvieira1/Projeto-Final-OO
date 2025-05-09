@@ -1,0 +1,4 @@
+venv/
+
+#Armazenamentos de Dados
+/data/*.db

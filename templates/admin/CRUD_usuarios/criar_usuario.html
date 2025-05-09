@@ -3,22 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Create User</title>
+    <title>Criar Usuario</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/create.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/CRUD_usuarios/criar_usuario.css') }}">
 </head>
 <body>
     <div class="navbar">
         <h2>Admin</h2>
         <ul>
-            <li><a href="{{ url_for('dashboard') }}"><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
-            <li><a href="{{ url_for('users') }}"><i class="fas fa-users"></i> Gerenciar Usuários</a></li>
-            <li><a href="{{ url_for('create_user') }}"><i class="fas fa-user-plus"></i> Novo Usuário</a></li>
+            <li><a href="{{ url_for('gerenciar_usuarios') }}"><i class="fas fa-users"></i> Gerenciar Usuários</a></li>
+            <li><a href="{{ url_for('criar_usuario') }}"><i class="fas fa-user-plus"></i> Novo Usuário</a></li>
+            <li><a href="{{ url_for('criar_turma') }}"><i class="fas fa-chalkboard"></i> Nova Turma</a></li>
+            <li><a href="{{ url_for('gerenciar_turmas') }}"><i class="fas fa-chalkboard"></i> Gerenciar Turmas</a></li>
+            <li><a href="{{ url_for('logout') }}"><i class="fa-solid fa-arrow-right-from-bracket"></i> Sair</a></li>
+
         </ul>
     </div>
     <div class="container">
-        <h1>Cadastrar usuário</h1>
-        <form action="{{ url_for('create_user') }}" method="POST">
+        <h1>Criar Novo Usuário</h1>
+        <form action="{{ url_for('criar_usuario') }}" method="POST">
             <div class="form-group">
                 <label for="nome">Nome:</label>
                 <input type="text" id="nome" name="nome" required>
@@ -32,10 +35,10 @@
                 <input type="password" id="senha" name="senha" required>
             </div>
             <div class="radio-group">
-                <input type="radio" id="professor" name="cargo" value="professor" required>
-                <label for="professor">Professor</label>
-                <input type="radio" id="estudante" name="cargo" value="estudante" required>
-                <label for="estudante">Estudante</label>
+                <input type="radio" id="Aluno" name="cargo" value="Aluno" required>
+                <label for="Aluno">Aluno</label>
+                <input type="radio" id="Professor" name="cargo" value="Professor" required>
+                <label for="Professor">Professor</label>
             </div>
             <button type="submit">Criar Usuário</button>
             {% with messages = get_flashed_messages() %}

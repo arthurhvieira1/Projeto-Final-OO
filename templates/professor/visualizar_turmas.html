@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Turmas Ministradas</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/professor/visualizar_turmas.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <div class="navbar">
+        <h2>U N B</h2>
+        <ul>
+            <li><a href="{{ url_for('visualizar_turmas') }}"><i class="fas fa-users"></i>Turmas</a></li>
+            <li><a href="{{ url_for('gerenciar_perfil', email=session['email'])}}"><i class="fa-solid fa-user"></i>Gerenciar Perfil</a></li>
+            <li><a href="{{ url_for('logout') }}"><i class="fa-solid fa-arrow-right-from-bracket"></i> Sair</a></li>
+        </ul>
+    </div>
+    <div class="container">
+        <h1>Turmas Ministradas</h1>
+        {% if turmas %}
+            <table class="users-table">
+                <thead>
+                    <tr>
+                        <th>Código</th>
+                        <th>Nome</th>
+                        <th>Ano</th>
+                        <th>Semestre</th>
+                        <th>Ações</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for turma in turmas %}
+                        <tr>
+                            <td>{{ turma.codigo_disciplina }}</td>
+                            <td>{{ turma.nome }}</td>
+                            <td>{{ turma.ano }}</td>
+                            <td>{{ turma.semestre }}º</td>
+                            <td>
+                                <a href="{{ url_for('visualizar_alunos_prof', codigo=turma.codigo_disciplina) }}" class="action-btn view-btn">
+                                    <i class="fas fa-eye"></i>
+                                </a>
+                                <a href="{{ url_for('lancar_notas', codigo=turma.codigo_disciplina) }}" class="action-btn edit-btn" title="Lançar Notas">
+                                    <i class="fa-solid fa-sliders"></i>                                 
+                                </a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <p>Nenhuma turma encontrada.</p>
+        {% endif %}
+    </div>
+</body>

@@ -66,6 +66,7 @@ body {
     border: 1px solid #ccc;
     border-radius: 5px;
     box-sizing: border-box;
+    border-color: #4169E1;
 }
 .form-container button {
     width: 100%;
@@ -81,7 +82,7 @@ body {
     background-color: #0056b3;
 }
 .link-login a {
-    color: #007bff;
+    color: #4169E1;
     text-decoration: none;
     margin-left: 5px;
 }

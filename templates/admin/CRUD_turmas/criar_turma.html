@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Criar Turma</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/CRUD_turmas/criar_turma.css') }}">
+</head>
+<body>
+    <div class="navbar">
+        <h2>Admin</h2>
+        <ul>
+            <li><a href="{{ url_for('gerenciar_usuarios') }}"><i class="fas fa-users"></i> Gerenciar Usuários</a></li>
+            <li><a href="{{ url_for('criar_usuario') }}"><i class="fas fa-user-plus"></i> Novo Usuário</a></li>
+            <li><a href="{{ url_for('criar_turma') }}"><i class="fas fa-chalkboard"></i> Nova Turma</a></li>
+            <li><a href="{{ url_for('gerenciar_turmas') }}"><i class="fas fa-chalkboard"></i> Gerenciar Turmas</a></li>
+            <li><a href="{{ url_for('logout') }}"><i class="fa-solid fa-arrow-right-from-bracket"></i> Sair</a></li>
+            
+        </ul>
+    </div>
+    <div class="container">
+        <h1>Criar Nova Turma</h1>
+        <form action="{{ url_for('criar_turma') }}" method="POST">
+            <div class="form-group">
+                <label for="codigo_disciplina">Código da Disciplina:</label>
+                <input type="text" id="codigo_disciplina" name="codigo_disciplina" required>
+            </div>
+            <div class="form-group">
+                <label for="nome">Nome da Turma:</label>
+                <input type="text" id="nome" name="nome" required>
+            </div>
+            <div class="form-group">
+                <label for="professor_email">Professor:</label>
+                <select id="professor_email" name="professor_email" required>
+                    {% for professor in professores %}
+                        <option value="{{ professor.email }}">{{ professor.nome }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="ano">Ano:</label>
+                <input type="number" id="ano" name="ano" required min="2024" max="2100">
+            </div>
+            <div class="form-group">
+                <label for="semestre">Semestre</label>
+                <div class="select-wrapper">
+                    <select id="semestre" name="semestre" required>
+                        <option value="" disabled selected>Selecione o semestre</option>
+                        <option value="1">1º Semestre</option>
+                        <option value="2">2º Semestre</option>
+                    </select>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+            </div>
+            <button type="submit">Criar Turma</button>
+        </form>
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="flash-message">{{ message }}</div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+    </div>
+</body>
+</html>

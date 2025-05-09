@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Visualizar Alunos da Turma</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/CRUD_turmas/vizualizar_alunos.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <div class="navbar">
+        <h2>Admin</h2>
+        <ul>
+            <li><a href="{{ url_for('gerenciar_usuarios') }}"><i class="fas fa-users"></i> Gerenciar Usuários</a></li>
+            <li><a href="{{ url_for('criar_usuario') }}"><i class="fas fa-user-plus"></i> Novo Usuário</a></li>
+            <li><a href="{{ url_for('criar_turma') }}"><i class="fas fa-chalkboard"></i> Nova Turma</a></li>
+            <li><a href="{{ url_for('gerenciar_turmas') }}"><i class="fas fa-chalkboard"></i> Gerenciar Turmas</a></li>
+            <li><a href="{{ url_for('logout') }}"><i class="fa-solid fa-arrow-right-from-bracket"></i> Sair</a></li>
+            
+        </ul>
+    </div>
+
+    <div class="container">
+        <div class="turma-info">
+            <h1>{{ turma.nome }}</h1>
+            <div class="info-detalhes">
+                <p><strong>Código:</strong> {{ turma.codigo_disciplina }}</p>
+                <p><strong>Professor:</strong> {{ turma.professor.nome }}</p>
+                <p><strong>Período:</strong> {{ turma.ano }}.{{ turma.semestre }}</p>
+            </div>
+        </div>
+
+        <div class="search-box">
+            <input type="text" id="searchInput" placeholder="Buscar alunos...">
+            <i class="fas fa-search"></i>
+        </div>
+        
+        <div class="header-actions">
+            <a href="{{ url_for('adicionar_alunos', codigo=turma.codigo_disciplina) }}" class="add-btn">
+                <i class="fas fa-plus"></i>
+                Adicionar Alunos
+            </a>
+        </div>
+        
+        <div class="alunos-container">
+            <h2>Alunos Matriculados ({{ alunos|length }})</h2>
+            {% if alunos %}
+            <table class="alunos-table">
+                <thead>
+                    <tr>
+                        <th>Nome</th>
+                        <th>Email</th>
+                        <th>Ações</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for aluno in alunos %}
+                    <tr class="aluno-item">
+                        <td>{{ aluno.nome }}</td>
+                        <td>{{ aluno.email }}</td>
+                        <td>
+                            <button onclick="removerAluno('{{ aluno.email }}')" class="remove-btn">
+                                <i class="fas fa-user-minus"></i> Remover
+                            </button>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            {% else %}
+            <p class="no-alunos">Nenhum aluno matriculado nesta turma.</p>
+            {% endif %}
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('searchInput').addEventListener('input', function(e) {
+            const searchTerm = e.target.value.toLowerCase();
+            document.querySelectorAll('.aluno-item').forEach(item => {
+                const nome = item.querySelector('td').textContent.toLowerCase();
+                item.style.display = nome.includes(searchTerm) ? '' : 'none';
+            });
+        });
+
+        function removerAluno(email) {
+            if (confirm('Deseja remover este aluno da turma?')) {
+                fetch(`/admin/CRUD_turmas/remover_aluno/${email}`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        turma_codigo: '{{ turma.codigo_disciplina }}'
+                    })
+                }).then(response => {
+                    if (response.ok) {
+                        location.reload();
+                    }
+                });
+            }
+        }
+    </script>
+</body>
+</html>

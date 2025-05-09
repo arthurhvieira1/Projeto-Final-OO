@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Minhas Notas</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/aluno/visualizar_notas.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <div class="navbar">
+        <h2>U N B</h2>
+        <ul>
+            <li><a href="{{ url_for('visualizar_turmas_aluno') }}"><i class="fas fa-graduation-cap"></i>Turmas</a></li>
+            <li><a href="{{ url_for('visualizar_notas') }}" class="active"><i class="fas fa-star"></i>Notas</a></li>
+            <li><a href="{{ url_for('gerenciar_perfil_aluno') }}"><i class="fa-solid fa-user"></i>Perfil</a></li>
+            <li><a href="{{ url_for('logout') }}"><i class="fa-solid fa-arrow-right-from-bracket"></i>Sair</a></li>
+        </ul>
+    </div>
+
+    <div class="container">
+        <h1>Minhas Notas</h1>
+
+        {% for periodo in periodos %}
+        <div class="periodo-section">
+            <h2>Período {{ periodo }}</h2>
+            <div class="notas-grid">
+                {% for turma in turmas %}
+                    {% set periodo_turma = turma.ano|string + "." + turma.semestre|string %}
+                    {% if periodo_turma == periodo %}
+                    <div class="nota-card">
+                        <div class="disciplina-header">
+                            <h3>{{ turma.nome }}</h3>
+                            <span class="codigo">{{ turma.codigo_disciplina }}</span>
+                        </div>
+                        <div class="professor-info">
+                            <span><i class="fas fa-chalkboard-teacher"></i> {{ turma.professor.nome }}</span>
+                        </div>
+                        <div class="notas-info">
+                            <div class="nota-item">
+                                <span class="nota-label">Nota 1:</span>
+                                <span class="nota-valor">{{ turma.notas|selectattr("aluno_email", "equalto", session['email'])|map(attribute="nota1")|first or "N/A" }}</span>
+                            </div>
+                            <div class="nota-item">
+                                <span class="nota-label">Nota 2:</span>
+                                <span class="nota-valor">{{ turma.notas|selectattr("aluno_email", "equalto", session['email'])|map(attribute="nota2")|first or "N/A" }}</span>
+                            </div>
+                            <div class="nota-item">
+                                <span class="nota-label">Nota 3:</span>
+                                <span class="nota-valor">{{ turma.notas|selectattr("aluno_email", "equalto", session['email'])|map(attribute="nota3")|first or "N/A" }}</span>
+                            </div>
+                            <div class="media-item">
+                                {% set notas = turma.notas|selectattr("aluno_email", "equalto", session['email'])|first %}
+                                {% if notas %}
+                                    {% set nota1 = notas.nota1 if notas.nota1 is not none else 0 %}
+                                    {% set nota2 = notas.nota2 if notas.nota2 is not none else 0 %}
+                                    {% set nota3 = notas.nota3 if notas.nota3 is not none else 0 %}
+                                    {% set media = (nota1 + nota2 + nota3) / 3 %}
+                                    <span class="media-label">Média:</span>
+                                    <span class="media-valor">{{ "%.2f"|format(media) }}</span>
+                                {% else %}
+                                    <span class="media-label">Média:</span>
+                                    <span class="media-valor">N/A</span>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                    {% endif %}
+                {% endfor %}
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</body>
+</html>

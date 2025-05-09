@@ -1,0 +1,15 @@
+version: "3.8"
+
+services:
+  app:
+    build: .
+    volumes:
+      - .:/app  # Monta a raiz do código da aplicação dentro do container (usando /app dentro do container)
+      - ./data:/app/data  # Garante persistência do banco SQLite
+    ports:
+      - "5000:5000"
+    environment:
+      - FLASK_APP=app.py  # Define o arquivo principal do Flask
+      - FLASK_RUN_HOST=0.0.0.0  # Permite que o container seja acessado externamente
+      - FLASK_ENV=development  # Ativa o modo de desenvolvimento
+    command: ["flask", "run"]  # Inicia o Flask automaticamente
